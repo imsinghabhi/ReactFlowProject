@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Position, NodeResizer } from '@xyflow/react';
-import CustomHandle from '../CustomHandle/CustomHandle';
-import { DataProps } from '../../utils/types/DataProps';
+import CustomHandle from '../../CustomHandle/CustomHandle';
+import { DataProps } from '../../../utils/types/DataProps';
 import { handleStyle, inputStyle, nodeStyle } from './Styles';
 
 const CustomRhombusNode = ({ data }: DataProps) => {

@@ -6,11 +6,11 @@ import {
   MiniMap,
   ReactFlow,
 } from '@xyflow/react';
-import CustomCircularNode from '../Components/CustomNodes/CustomCircularNode';
-import CustomRhombusNode from '../Components/CustomNodes/rhombus';
+import CustomCircularNode from '../Components/CustomNodes/Circle/CustomCircularNode';
+import CustomRhombusNode from '../Components/CustomNodes/Rhombus/rhombus';
 import CustomDrawer from '../Components/Drawer/ CustomDrawer';
-import CustomRectangularNode from '../Components/CustomNodes/Rectangular';
-import CommentNode from '../Components/CustomNodes/Comments';
+import CustomRectangularNode from '../Components/CustomNodes/Rectangle/Rectangular';
+import CommentNode from '../Components/CustomNodes/Comments/Comments';
 import { useWorkflow } from '../hooks/useWorkflow';
 import '@xyflow/react/dist/style.css';
 
