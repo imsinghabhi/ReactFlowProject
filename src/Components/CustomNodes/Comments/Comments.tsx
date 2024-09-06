@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { DataProps } from '../../../utils/types/interfaces';
 import { nodeContainerStyle, textFieldStyle, handleStyle } from './style'; // Adjust the path as needed
 
-const CommentNode: React.FC<DataProps> = ({ data }) => {
+const CommentNode = ({ data,selected}:DataProps) => {
   const { onChange, label, id } = data;
 
   return (
@@ -18,7 +18,7 @@ const CommentNode: React.FC<DataProps> = ({ data }) => {
         fullWidth
         style={textFieldStyle}
       />
-      <NodeResizer minHeight={150} minWidth={150} />
+      <NodeResizer minHeight={150} minWidth={150}keepAspectRatio  color="#ff0071" isVisible={selected} />
       <Handle
         type="target"
         position={Position.Bottom}

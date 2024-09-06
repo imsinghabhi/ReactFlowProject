@@ -6,7 +6,8 @@ export interface DataProps {
       id: string;
       label: string;
       onChange(newLabel: string, id: string): void;
-    };
+    }
+    selected: boolean;
   }
 
 

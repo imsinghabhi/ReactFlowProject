@@ -3,7 +3,7 @@ import { NodeResizer, Position } from '@xyflow/react';
 import CustomHandle from '../../CustomHandle/CustomHandle';
 import { DataProps } from '../../../utils/types/interfaces';
 import { nodeContainerStyle, inputStyle, handleStyle, handlePositions } from './style'; 
-const CustomRectangularNode: React.FC<DataProps> = ({ data }, selected) => {
+const CustomRectangularNode= ({ data,selected }:DataProps) => {
   const { label, onChange, id } = data;
 
   const [inputValue, setInputValue] = useState(label);
@@ -16,7 +16,7 @@ const CustomRectangularNode: React.FC<DataProps> = ({ data }, selected) => {
 
   return (
     <div style={nodeContainerStyle}>
-      <NodeResizer minHeight={100} minWidth={100} keepAspectRatio isVisible={selected} />
+      <NodeResizer minHeight={100} minWidth={100} keepAspectRatio color="#ff0071" isVisible={selected}/>
       <input
         type="text"
         value={inputValue}

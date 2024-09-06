@@ -4,8 +4,8 @@ import CustomHandle from '../../CustomHandle/CustomHandle';
 import { DataProps } from '../../../utils/types/interfaces';
 import { handleStyle, inputStyle, nodeStyle } from './Styles';
 
-const CustomRhombusNode = ({ data }: DataProps) => {
-  const { onChange, label, id } = data;
+const CustomRhombusNode = ({ data ,selected}: DataProps ) => {
+  const { onChange, label, id} = data;
   const [inputValue, setInputValue] = useState(label);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +16,7 @@ const CustomRhombusNode = ({ data }: DataProps) => {
 
   return (
     <div style={nodeStyle}>
-      <NodeResizer minHeight={100} minWidth={100} keepAspectRatio />
+      <NodeResizer minHeight={100} minWidth={100}  color="#ff0071" keepAspectRatio isVisible={selected}/>
       <input
         type="text"
         value={inputValue}

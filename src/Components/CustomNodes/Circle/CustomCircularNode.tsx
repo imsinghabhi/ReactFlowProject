@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { DataProps } from '../../../utils/types/interfaces';
 import { inputStyle,  handleStyle } from './style'; 
 
-const CustomCircularNode: React.FC<DataProps> = ({ data }) => {
+const CustomCircularNode= ({ data,selected }:DataProps) => {
   const { label, onChange, id } = data;
   const [inputValue, setInputValue] = useState(label);
 
@@ -16,7 +16,7 @@ const CustomCircularNode: React.FC<DataProps> = ({ data }) => {
 
   return (
     <>
-      <NodeResizer minWidth={100} minHeight={30} keepAspectRatio />
+      <NodeResizer minWidth={100} minHeight={30} keepAspectRatio isVisible={selected} />
       <input
         type="text"
         value={inputValue}

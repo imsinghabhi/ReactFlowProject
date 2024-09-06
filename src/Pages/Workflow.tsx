@@ -4,6 +4,7 @@ import {
   Background,
   Controls,
   MiniMap,
+  NodeTypes,
   ReactFlow,
 } from '@xyflow/react';
 import CustomCircularNode from '../Components/CustomNodes/Circle/CustomCircularNode';
@@ -52,14 +53,14 @@ export const Workflow = () => {
         onDeleteAllNodes={handleDeleteAllNodes}
         onAddComments={handleAddCommentNode}
       />
-      <div style={{ flex: 1 }}>
+    
         <ReactFlow
           nodes={nodes}
           edges={edges}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
-          nodeTypes={nodeTypes}
+          nodeTypes={nodeTypes as NodeTypes}
           className="react-flow-node-resizer-example"
           fitView
         >
@@ -68,6 +69,6 @@ export const Workflow = () => {
           <Controls />
         </ReactFlow>
       </div>
-    </div>
+    
   );
 };
