@@ -1,13 +1,12 @@
 import React from 'react';
 import {
-  Drawer, List, ListItem as MuiListItem, ListItemText, Divider, FormControl,
-  InputLabel, Select, MenuItem, SelectChangeEvent, Button
+  Drawer, List, ListItem as MuiListItem, ListItemText, Divider,
+  FormControl, InputLabel, Select, MenuItem, SelectChangeEvent
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { drawerStyles, listContainerStyle, listItemStyle, formControlStyle } from './style'; // Adjust the path as needed
 
-
- const ListItem = MuiListItem as React.ComponentType<any>;
-
+const ListItem = MuiListItem as React.ComponentType<any>;
 
 interface DrawerProps {
   open: boolean;
@@ -31,32 +30,32 @@ const CustomDrawer: React.FC<DrawerProps> = ({
       open={open}
       onClose={onClose}
       variant="persistent"
-      sx={{ width: 250, flexShrink: 0, '& .MuiDrawer-paper': { width: 250, boxSizing: 'border-box' } }}
+      sx={drawerStyles}
     >
-      <div style={{ width: 250 }}>
+      <div style={listContainerStyle}>
         <List>
-          <ListItem  onClick={onAddCircleNode}> 
+          <ListItem style={listItemStyle} onClick={onAddCircleNode}> 
             <AddIcon />
             <ListItemText primary="Add Circle Node" />
           </ListItem>
           <Divider />
-          <ListItem onClick={onAddComments}> 
+          <ListItem style={listItemStyle} onClick={onAddComments}> 
             <AddIcon />
             <ListItemText primary="Add Comments" />
           </ListItem>
           <Divider />
-          <ListItem  onClick={onAddRhombusNode}> 
+          <ListItem style={listItemStyle} onClick={onAddRhombusNode}> 
             <AddIcon />
             <ListItemText primary="Add Rhombus Node" />
           </ListItem>
           <Divider />
-          <ListItem  onClick={onAddRectangle}> 
+          <ListItem style={listItemStyle} onClick={onAddRectangle}> 
             <AddIcon />
             <ListItemText primary="Add Rectangle Node" />
           </ListItem>
           <Divider />
           <ListItem>
-            <FormControl fullWidth margin="dense"> 
+            <FormControl fullWidth sx={formControlStyle}> 
               <InputLabel variant="outlined" shrink>
                 Edge Type
               </InputLabel>
