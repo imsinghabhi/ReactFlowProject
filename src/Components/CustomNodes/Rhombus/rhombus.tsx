@@ -16,6 +16,7 @@ const CustomRhombusNode = ({ data }: DataProps) => {
 
   return (
     <div style={nodeStyle}>
+      <NodeResizer minHeight={100} minWidth={100} keepAspectRatio />
       <input
         type="text"
         value={inputValue}
@@ -23,7 +24,7 @@ const CustomRhombusNode = ({ data }: DataProps) => {
         style={inputStyle}
       />
 
-      <NodeResizer minHeight={100} minWidth={100} keepAspectRatio />
+      
 
       <CustomHandle
         id="1"

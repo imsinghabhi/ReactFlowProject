@@ -1,9 +1,9 @@
 
 export const nodeStyle: React.CSSProperties = {
-    width: '100%',
-    height: '100%',
-    minWidth: '100px',
-    minHeight: '100px',
+    width: '90%',
+    height: '90%',
+    minWidth: '150px',
+    minHeight: '150px',
     backgroundColor: '#e2e8f0',
     border: '1px solid #222',
     display: 'flex',
