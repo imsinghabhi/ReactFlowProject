@@ -90,7 +90,7 @@
 import React, { useState } from 'react';
 import { NodeResizer, Position } from '@xyflow/react';
 import CustomHandle from '../../CustomHandle/CustomHandle';
-import { DataProps } from '../../../utils/types/DataProps';
+import { DataProps } from '../../../utils/types/interfaces';
 import { nodeContainerStyle, inputStyle, handleStyle, handlePositions } from './style'; 
 const CustomRectangularNode: React.FC<DataProps> = ({ data }, selected) => {
   const { label, onChange, id } = data;

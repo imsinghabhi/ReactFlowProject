@@ -3,22 +3,14 @@ import {
   Drawer, List, ListItem as MuiListItem, ListItemText, Divider,
   FormControl, InputLabel, Select, MenuItem, SelectChangeEvent
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import { drawerStyles, listContainerStyle, listItemStyle, formControlStyle } from './style'; // Adjust the path as needed
+import CircleIcon from '@mui/icons-material/Circle';
+import DiamondIcon from '@mui/icons-material/Diamond';
+import RectangleIcon from '@mui/icons-material/Rectangle';
+import CommentIcon from '@mui/icons-material/Comment';
+import { drawerStyles, listContainerStyle, listItemStyle, formControlStyle } from './style';
+import { DrawerProps } from '../../utils/types/interfaces';
 
 const ListItem = MuiListItem as React.ComponentType<any>;
-
-interface DrawerProps {
-  open: boolean;
-  onClose: () => void;
-  onAddCircleNode: () => void;
-  onAddRhombusNode: () => void;
-  onAddRectangle: () => void;
-  edgeType?: string;
-  onEdgeTypeChange?: (event: SelectChangeEvent<string>) => void;
-  onDeleteAllNodes: () => void; 
-  onAddComments?: () => void; 
-}
 
 const CustomDrawer: React.FC<DrawerProps> = ({
   open, onClose, onAddCircleNode, onAddRhombusNode, onAddRectangle,
@@ -35,22 +27,22 @@ const CustomDrawer: React.FC<DrawerProps> = ({
       <div style={listContainerStyle}>
         <List>
           <ListItem style={listItemStyle} onClick={onAddCircleNode}> 
-            <AddIcon />
+            <CircleIcon />
             <ListItemText primary="Add Circle Node" />
           </ListItem>
           <Divider />
           <ListItem style={listItemStyle} onClick={onAddComments}> 
-            <AddIcon />
+            <CommentIcon />
             <ListItemText primary="Add Comments" />
           </ListItem>
           <Divider />
           <ListItem style={listItemStyle} onClick={onAddRhombusNode}> 
-            <AddIcon />
+            <DiamondIcon />
             <ListItemText primary="Add Rhombus Node" />
           </ListItem>
           <Divider />
           <ListItem style={listItemStyle} onClick={onAddRectangle}> 
-            <AddIcon />
+            <RectangleIcon />
             <ListItemText primary="Add Rectangle Node" />
           </ListItem>
           <Divider />

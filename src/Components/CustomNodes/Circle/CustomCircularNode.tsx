@@ -55,7 +55,7 @@
 import { NodeResizer, Position } from '@xyflow/react';
 import CustomHandle from '../../CustomHandle/CustomHandle';
 import { useState } from 'react';
-import { DataProps } from '../../../utils/types/DataProps';
+import { DataProps } from '../../../utils/types/interfaces';
 import { inputStyle,  handleStyle } from './style'; 
 
 const CustomCircularNode: React.FC<DataProps> = ({ data }) => {

@@ -1,10 +1,7 @@
 import React from "react";
 import { Handle, HandleProps } from "@xyflow/react";
+import { CustomHandleProps } from "../../utils/types/interfaces";
 
-interface CustomHandleProps extends HandleProps {
-  id: string;
-  style?: React.CSSProperties; 
-}
 
 export default function CustomHandle({ id, style, ...props }: CustomHandleProps) {
   return (

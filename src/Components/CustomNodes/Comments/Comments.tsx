@@ -59,7 +59,7 @@
 import React from 'react';
 import { Handle, NodeResizer, Position } from "@xyflow/react";
 import TextField from '@mui/material/TextField';
-import { DataProps } from '../../../utils/types/DataProps';
+import { DataProps } from '../../../utils/types/interfaces';
 import { nodeContainerStyle, textFieldStyle, handleStyle } from './style'; // Adjust the path as needed
 
 const CommentNode: React.FC<DataProps> = ({ data }) => {
