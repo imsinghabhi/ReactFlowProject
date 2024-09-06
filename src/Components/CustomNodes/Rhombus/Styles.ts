@@ -33,4 +33,3 @@ export const nodeStyle: React.CSSProperties = {
   export const handleStyle: React.CSSProperties = {
     zIndex: 1,
   };
-  
