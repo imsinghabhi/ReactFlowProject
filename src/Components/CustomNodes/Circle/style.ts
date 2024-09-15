@@ -1,17 +1,34 @@
-import { CSSProperties } from 'react';
 
 
-export const inputStyle: CSSProperties = {
-  margin: 6,
-  width: '90%',
-  height: '90%',
+
+export const circularNodeStyle: React.CSSProperties = {
+  width: '100%',
+  height: '100%',
+  minWidth:'150px',
+  minHeight:'200px',
   borderRadius: '50%',
-  border: 'none',
-  backgroundColor: 'transparent',
-  textAlign: 'center',
+  backgroundColor: '#E0E0E0',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'relative', 
+  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+  fontSize: '1em',
 };
 
+export const inputStyle: React.CSSProperties = {
+  border: 'none',
+  background: 'transparent',
+  textAlign: 'center',
+  fontSize: '1em',
+  width: '80%',
+  color: '#333',
+  outline: 'none',
+};
 
-export const handleStyle: CSSProperties = {
-  zIndex: 1,
+export const handleStyle: React.CSSProperties = {
+  width: '10px',
+  height: '10px',
+  backgroundColor: 'black',  
+  borderRadius: '50%',
 };

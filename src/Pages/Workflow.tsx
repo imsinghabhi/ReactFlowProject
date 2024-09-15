@@ -4,16 +4,16 @@ import {
   Background,
   Controls,
   MiniMap,
-  NodeTypes,
   ReactFlow,
 } from '@xyflow/react';
 import CustomCircularNode from '../Components/CustomNodes/Circle/CustomCircularNode';
 import CustomRhombusNode from '../Components/CustomNodes/Rhombus/rhombus';
-import CustomDrawer from '../Components/Drawer/ CustomDrawer';
 import CustomRectangularNode from '../Components/CustomNodes/Rectangle/Rectangular';
 import CommentNode from '../Components/CustomNodes/Comments/Comments';
+import CustomDrawer from '../Components/Drawer/ CustomDrawer';
 import { useWorkflow } from '../hooks/useWorkflow';
 import '@xyflow/react/dist/style.css';
+
 
 const nodeTypes = {
   circle: CustomCircularNode,
@@ -22,53 +22,54 @@ const nodeTypes = {
   comment: CommentNode,
 };
 
-export const Workflow = () => {
+const Workflow: React.FC = () => {
   const {
-    nodes,
-    edges,
-    onNodesChange,
-    onEdgesChange,
-    onConnect,
-    edgeType,
-    handleEdgeTypeChange,
-    handleAddCircleNode,
-    handleAddRhombusNode,
-    handleAddRectangle,
-    handleAddCommentNode,
-    handleDeleteAllNodes,
-    drawerOpen,
-    handleCloseDrawer,
+    drawerOpen, setDrawerOpen, nodes, edges, onNodesChange, 
+    onEdgesChange, onConnect, edgeType, handleEdgeTypeChange, 
+    handleAddCircleNode, handleAddRhombusNode, handleAddRectangleNode,
+    handleAddCommentNode, handleDeleteAllNodes, handleSaveWorkflow, 
+    handleLoadWorkflow, handleRemoveWorkflow, savedWorkflows, handleDownloadWorkflow,  
   } = useWorkflow();
 
   return (
     <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
+      
       <CustomDrawer
         open={drawerOpen}
-        onClose={handleCloseDrawer}
+        onClose={() => setDrawerOpen(false)}
         onAddCircleNode={handleAddCircleNode}
         onAddRhombusNode={handleAddRhombusNode}
-        onAddRectangle={handleAddRectangle}
+        onAddRectangle={handleAddRectangleNode}
         edgeType={edgeType}
         onEdgeTypeChange={handleEdgeTypeChange}
         onDeleteAllNodes={handleDeleteAllNodes}
+        onSaveWorkflow={handleSaveWorkflow}
+        onLoadWorkflow={handleLoadWorkflow}
+        onRemoveWorkflow={handleRemoveWorkflow}
+        savedWorkflows={savedWorkflows}
         onAddComments={handleAddCommentNode}
+        onDownloadWorkflow={handleDownloadWorkflow}
+      
       />
-    
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          nodeTypes={nodeTypes as NodeTypes}
-          className="react-flow-node-resizer-example"
-          fitView
-        >
-          <Background />
-          <MiniMap />
-          <Controls />
-        </ReactFlow>
-      </div>
-    
+
+     
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        nodeTypes={nodeTypes}
+        className="react-flow-node-resizer-example"
+        fitView
+      >
+        
+        <Background />
+        <MiniMap />
+        <Controls />
+      </ReactFlow>
+    </div>
   );
 };
+
+export default Workflow;

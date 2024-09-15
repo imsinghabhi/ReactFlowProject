@@ -1,3 +1,5 @@
+
+
 import { useCallback, useEffect, useState } from 'react';
 import {
   addEdge,
@@ -9,13 +11,36 @@ import {
   useNodesState,
 } from '@xyflow/react';
 import { SelectChangeEvent } from '@mui/material';
+import localforage from 'localforage';
 import { initialEdges, initialNodes } from '../utils/Workflow.constants';
+import { Workflow } from '../utils/types/interfaces';
+
 
 export const useWorkflow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [edgeType, setEdgeType] = useState('default');
+  const [savedWorkflows, setSavedWorkflows] = useState<Workflow[]>([]);
+  const [autoSaveInterval, setAutoSaveInterval] = useState<number>(3000); 
+  const [activeWorkflowName, setActiveWorkflowName] = useState<string | null>(null);
+
+  const loadSavedWorkflows = async () => {
+    const workflows = await localforage.getItem<Workflow[]>('workflows');
+    if (workflows) {
+      setSavedWorkflows(workflows);
+    }
+  };
+
+  const handleNodeLabelChange = (newLabel: string, nodeId: string) => {
+    setNodes((nds) =>
+      nds.map((node) =>
+        node.id === nodeId
+          ? { ...node, data: { ...node.data, label: newLabel } }
+          : node
+      )
+    );
+  };
 
   const onConnect = useCallback(
     (connection: Connection) => {
@@ -30,9 +55,10 @@ export const useWorkflow = () => {
           height: 20,
           color: '#FF0072',
         },
-        style: { 
-          strokeWidth:1.5,
-          stroke: 'pink' },
+        style: {
+          strokeWidth: 1.5,
+          stroke: 'pink',
+        },
       };
 
       setEdges((prevEdges: Edge[]) => addEdge(edge, prevEdges));
@@ -44,27 +70,15 @@ export const useWorkflow = () => {
     setEdgeType(event.target.value as string);
   };
 
-  const handleNodeLabelChange = (newLabel: string, nodeId: string) => {
-    setNodes((nds) =>
-      nds.map((node) =>
-        node.id === nodeId
-          ? { ...node, data: { ...node.data, label: newLabel } }
-          : node
-      )
-    );
-  };
-
   const handleAddCircleNode = () => {
     const newNode: Node = {
       id: `node_${nodes.length + 1}`,
       type: 'circle',
       position: { x: Math.random() * 200, y: Math.random() * 200 },
-      data: { label: 'Circle Node', onChange: handleNodeLabelChange },
-      style: {
-        width: 150,
-        height: 200,
-        borderRadius: '50%',
-        backgroundColor: 'grey',
+      data: {
+        label: 'Circle Node',
+        onChange: handleNodeLabelChange,
+        id: `node_${nodes.length + 1}`,
       },
     };
     setNodes((nds) => [...nds, newNode]);
@@ -75,17 +89,25 @@ export const useWorkflow = () => {
       id: `node_${nodes.length + 1}`,
       type: 'rhombus',
       position: { x: Math.random() * 200, y: Math.random() * 200 },
-      data: { label: 'Rhombus Node', onChange: handleNodeLabelChange },
+      data: {
+        label: 'Rhombus Node',
+        onChange: handleNodeLabelChange,
+        id: `node_${nodes.length + 1}`,
+      },
     };
     setNodes((nds) => [...nds, newNode]);
   };
 
-  const handleAddRectangle = () => {
+  const handleAddRectangleNode = () => {
     const newNode: Node = {
       id: `node_${nodes.length + 1}`,
       type: 'rectangle',
       position: { x: Math.random() * 200, y: Math.random() * 200 },
-      data: { label: 'Rectangle', onChange: handleNodeLabelChange },
+      data: {
+        label: 'Rectangle Node',
+        onChange: handleNodeLabelChange,
+        id: `node_${nodes.length + 1}`,
+      },
     };
     setNodes((nds) => [...nds, newNode]);
   };
@@ -95,7 +117,11 @@ export const useWorkflow = () => {
       id: `comment_${nodes.length + 1}`,
       type: 'comment',
       position: { x: Math.random() * 200, y: Math.random() * 200 },
-      data: { label: '', onChange: handleNodeLabelChange, id: `comment_${nodes.length + 1}` },
+      data: {
+        label: '',
+        onChange: handleNodeLabelChange,
+        id: `comment_${nodes.length + 1}`,
+      },
     };
     setNodes((nds) => [...nds, newNode]);
   };
@@ -105,6 +131,97 @@ export const useWorkflow = () => {
     setEdges([]);
   };
 
+  const handleSaveWorkflow = async (name: string) => {
+    const workflow: Workflow = {
+      name,
+      nodes: nodes.map((node) => ({
+        ...node,
+        data: {
+          ...node.data,
+          onChange: undefined, 
+        },
+      })),
+      edges,
+    };
+
+    const existingWorkflows = (await localforage.getItem<Workflow[]>('workflows')) || [];
+    const updatedWorkflows = existingWorkflows.filter(w => w.name !== name);
+    updatedWorkflows.push(workflow);
+
+    try {
+      await localforage.setItem('workflows', updatedWorkflows);
+      setSavedWorkflows(updatedWorkflows);
+      console.log('Workflow saved successfully');
+    } catch (error) {
+      console.error('Error saving workflow:', error);
+    }
+  };
+
+  const handleAutoSaveWorkflow = async () => {
+    if (activeWorkflowName) {
+      await handleSaveWorkflow(activeWorkflowName);
+    }
+  };
+
+  const handleLoadWorkflow = async (name: string) => {
+    try {
+      const savedWorkflows = await localforage.getItem<Workflow[]>('workflows');
+      const workflow = savedWorkflows?.find(w => w.name === name);
+      if (workflow) {
+        setActiveWorkflowName(name);
+        setNodes(workflow.nodes.map((node) => ({
+          ...node,
+          data: {
+            ...node.data,
+            onChange: handleNodeLabelChange,
+          },
+        })));
+        setEdges(workflow.edges);
+      }
+    } catch (error) {
+      console.error('Error loading workflow:', error);
+    }
+  };
+
+  const handleRemoveWorkflow = async (name: string) => {
+    const existingWorkflows = await localforage.getItem<Workflow[]>('workflows') || [];
+    const updatedWorkflows = existingWorkflows.filter(w => w.name !== name);
+
+    try {
+      await localforage.setItem('workflows', updatedWorkflows);
+      setSavedWorkflows(updatedWorkflows);
+      console.log('Workflow removed successfully');
+    } catch (error) {
+      console.error('Error removing workflow:', error);
+    }
+  };
+ 
+const handleDownloadWorkflow = (workflowName: string) => {
+  const workflow = savedWorkflows.find(w => w.name === workflowName);
+  if (workflow) {
+    const workflowData = JSON.stringify(workflow, null, 2);
+    const blob = new Blob([workflowData], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${workflowName}.json`;
+    link.click();
+  } else {
+    console.error('Workflow not found');
+  }
+};
+
+
+  useEffect(() => {
+    loadSavedWorkflows();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleAutoSaveWorkflow();
+    }, autoSaveInterval);
+
+    return () => clearInterval(interval); 
+  }, [nodes, edges, activeWorkflowName, autoSaveInterval]);
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.ctrlKey && event.key === 'a') {
       const nodeIds = nodes.map((node) => node.id);
@@ -124,11 +241,9 @@ export const useWorkflow = () => {
     };
   }, [nodes]);
 
-  const handleCloseDrawer = () => {
-    setDrawerOpen(false);
-  };
-
   return {
+    drawerOpen,
+    setDrawerOpen,
     nodes,
     edges,
     onNodesChange,
@@ -138,10 +253,14 @@ export const useWorkflow = () => {
     handleEdgeTypeChange,
     handleAddCircleNode,
     handleAddRhombusNode,
-    handleAddRectangle,
-    handleAddCommentNode,
+    handleAddRectangleNode,
     handleDeleteAllNodes,
-    drawerOpen,
-    handleCloseDrawer,
+    handleSaveWorkflow,
+    handleLoadWorkflow,
+    handleRemoveWorkflow,
+    savedWorkflows,
+    handleAddCommentNode,
+    setAutoSaveInterval, 
+    handleDownloadWorkflow  
   };
 };
