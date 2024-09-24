@@ -4,17 +4,17 @@ import CustomHandle from '../../CustomHandle/CustomHandle';
 import { DataProps } from '../../../utils/Interfaces/types';
 import { circularNodeStyle, inputStyle, handleStyle } from './style';
 import { CircularHandles } from '../../utils/constants';
+import CommonInput from '../../CommonComponents/TextInput';
 
 const CustomCircularNode = ({ data, selected }: DataProps) => {
   const { label, onChange, id } = data;
   const [inputValue, setInputValue] = useState<string>(label);
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLabel = event.target.value;
     setInputValue(newLabel);
     onChange(newLabel, id); 
   };
-
+  
   return (
     <div style={circularNodeStyle}>
       <NodeResizer 
@@ -24,13 +24,13 @@ const CustomCircularNode = ({ data, selected }: DataProps) => {
         color="#ff0071" 
         isVisible={selected} 
       />
-      <input
-        type="text"
+
+       <CommonInput
         value={inputValue}
         onChange={handleInputChange}
-        style={inputStyle}
+        inputStyle={inputStyle}  
       />
-      
+     
       {CircularHandles.map(({ id, type, position, style }) => (
         <CustomHandle
           key={id}
@@ -40,6 +40,7 @@ const CustomCircularNode = ({ data, selected }: DataProps) => {
           style={{ ...handleStyle, ...style }}
         />
       ))}
+
     </div>
   );
 };

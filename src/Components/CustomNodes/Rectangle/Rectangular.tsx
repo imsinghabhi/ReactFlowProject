@@ -4,6 +4,7 @@ import CustomHandle from '../../CustomHandle/CustomHandle';
 import { DataProps,} from '../../../utils/Interfaces/types';
 import { nodeContainerStyle, inputStyle, handleStyle, handlePositions } from './style';
 import { RectHandles } from '../../utils/constants';
+import CommonInput from '../../CommonComponents/TextInput';
 
 
 const CustomRectangularNode = ({ data, selected }: DataProps) => {
@@ -27,11 +28,11 @@ const CustomRectangularNode = ({ data, selected }: DataProps) => {
         color="#ff0071" 
         isVisible={selected} 
       />
-      <input
-        type="text"
+     
+     <CommonInput
         value={inputValue}
         onChange={handleInputChange}
-        style={inputStyle}
+        inputStyle={inputStyle}  
       />
      
       {RectHandles.map(({ id, type, position, style }) => (

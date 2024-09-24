@@ -4,6 +4,8 @@ import CustomHandle from '../../CustomHandle/CustomHandle';
 import { DataProps } from '../../../utils/Interfaces/types';
 import { nodeStyle, inputStyle, handleStyle } from './Styles';
 import { RhombusHandles } from '../../utils/constants';
+import CommonInput from '../../CommonComponents/TextInput';
+
 
 const CustomRhombusNode = ({ data, selected }: DataProps) => {
   const { onChange, label, id } = data;
@@ -24,12 +26,13 @@ const CustomRhombusNode = ({ data, selected }: DataProps) => {
         color="#ff0071"
         isVisible={selected}
       />
-      <input
-        type="text"
+
+      <CommonInput
         value={inputValue}
         onChange={handleInputChange}
-        style={inputStyle}
+        inputStyle={inputStyle}  
       />
+      
       {RhombusHandles.map(({ id, type, position, style }) => (
         <CustomHandle
           key={id}

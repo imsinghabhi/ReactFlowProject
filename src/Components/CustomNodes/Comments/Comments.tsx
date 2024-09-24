@@ -1,26 +1,34 @@
 import React from 'react';
 import { Handle, NodeResizer, Position } from "@xyflow/react";
 import { DataProps } from '../../../utils/Interfaces/types';
-import { nodeContainerStyle, textareaStyle, handleStyle } from './style'; 
+import { nodeContainerStyle, textareaStyle, handleStyle } from './style';
+import CommonTextarea from '../../CommonComponents/CommonTextarea'; 
 
 const CommentNode = ({ data, selected }: DataProps) => {
   const { onChange, label, id } = data;
 
+  const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onChange(event.target.value, id);
+  };
+  
   return (
     <div style={nodeContainerStyle}>
-      <textarea
+
+      <CommonTextarea
         value={label}
-        onChange={(event) => onChange(event.target.value, id)}
-        style={textareaStyle}
+        onChange={handleTextareaChange}
+        textareaStyle={textareaStyle}
         placeholder="Enter comment here..."
       />
+
       <NodeResizer
         minHeight={150}
         minWidth={150}
-        keepAspectRatio={true} 
+        keepAspectRatio={true}
         color="#ff0071"
         isVisible={selected}
       />
+
       <Handle
         type="target"
         position={Position.Bottom}
