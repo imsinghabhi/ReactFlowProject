@@ -8,7 +8,7 @@ import { handleStyle, inputStyle, nodeStyle } from './Styles';
 
 const CustomRhombusNode = ({ data, selected }: DataProps) => {
   const { onChange, label, id } = data;
-  const [inputValue, setInputValue] = useState(label);
+  const [inputValue, setInputValue] = useState<string>(label);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLabel = event.target.value;

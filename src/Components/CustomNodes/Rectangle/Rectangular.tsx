@@ -7,7 +7,7 @@ import { nodeContainerStyle, inputStyle, handleStyle, handlePositions } from './
 
 const CustomRectangularNode = ({ data, selected }: DataProps) => {
   const { label, onChange, id } = data;
-  const [inputValue, setInputValue] = useState(label);
+  const [inputValue, setInputValue] = useState<string>(label);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLabel = event.target.value;

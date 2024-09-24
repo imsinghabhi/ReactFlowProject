@@ -6,14 +6,14 @@ import { inputStyle, handleStyle, circularNodeStyle } from './style';
 
 const CustomCircularNode = ({ data, selected }: DataProps) => {
   const { label, onChange, id } = data;
-  const [inputValue, setInputValue] = useState(label);
+  const [inputValue, setInputValue] = useState<string>(label);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLabel = event.target.value;
     setInputValue(newLabel);
     onChange(newLabel, id);
   };
-
+  
   return (
     <div style={circularNodeStyle}>
       <NodeResizer minWidth={150} minHeight={200} keepAspectRatio isVisible={selected} />

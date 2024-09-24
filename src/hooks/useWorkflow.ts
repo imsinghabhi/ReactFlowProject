@@ -18,8 +18,8 @@ import { Workflow } from '../utils/types/interfaces';
 export const useWorkflow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [drawerOpen, setDrawerOpen] = useState(true);
-  const [edgeType, setEdgeType] = useState('default');
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
+  const [edgeType, setEdgeType] = useState<string>('default');
   const [savedWorkflows, setSavedWorkflows] = useState<Workflow[]>([]);
   const [autoSaveInterval, setAutoSaveInterval] = useState<number>(3000);
   const [activeWorkflowName, setActiveWorkflowName] = useState<string | null>(null);
