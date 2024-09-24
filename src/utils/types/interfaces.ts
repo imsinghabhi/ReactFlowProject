@@ -45,6 +45,9 @@ export interface Workflow {
     style?: React.CSSProperties; 
   }
   
-  
+  export enum HandleType {
+    Source = 'source',
+    Target = 'target',
+  }
   
 

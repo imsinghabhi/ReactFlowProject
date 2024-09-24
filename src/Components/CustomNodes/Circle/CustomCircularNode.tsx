@@ -1,8 +1,9 @@
-import { NodeResizer, Position } from '@xyflow/react';
+import React, { useState } from 'react';
+import { NodeResizer } from '@xyflow/react';
 import CustomHandle from '../../CustomHandle/CustomHandle';
-import { useState } from 'react';
 import { DataProps } from '../../../utils/types/interfaces';
-import { inputStyle, handleStyle, circularNodeStyle } from './style';
+import { circularNodeStyle, inputStyle, handleStyle } from './style';
+import { CircularHandles } from '../../utils/constants';
 
 const CustomCircularNode = ({ data, selected }: DataProps) => {
   const { label, onChange, id } = data;
@@ -11,22 +12,34 @@ const CustomCircularNode = ({ data, selected }: DataProps) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLabel = event.target.value;
     setInputValue(newLabel);
-    onChange(newLabel, id);
+    onChange(newLabel, id); 
   };
-  
+
   return (
     <div style={circularNodeStyle}>
-      <NodeResizer minWidth={150} minHeight={200} keepAspectRatio isVisible={selected} />
+      <NodeResizer 
+        minHeight={150} 
+        minWidth={200} 
+        keepAspectRatio={true}
+        color="#ff0071" 
+        isVisible={selected} 
+      />
       <input
         type="text"
         value={inputValue}
         onChange={handleInputChange}
         style={inputStyle}
       />
-      <CustomHandle id="1" type="source" position={Position.Right} style={handleStyle} />
-      <CustomHandle id="2" type="target" position={Position.Left} style={handleStyle} />
-      <CustomHandle id="3" type="source" position={Position.Top} style={handleStyle} />
-      <CustomHandle id="4" type="target" position={Position.Bottom} style={handleStyle} />
+      
+      {CircularHandles.map(({ id, type, position, style }) => (
+        <CustomHandle
+          key={id}
+          id={id}
+          type={type}
+          position={position}
+          style={{ ...handleStyle, ...style }}
+        />
+      ))}
     </div>
   );
 };

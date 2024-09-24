@@ -40,3 +40,12 @@ export const handleStyle: CSSProperties = {
   borderRadius: '50%',
   zIndex: 1,
 };
+
+
+
+export const handlePositin = {
+  right: { right: '-5px', top: '100%', transform: 'translateY(-50%)' },
+  left: { left: '-5px', top: '0%', transform: 'translateY(-50%)' },
+  top: { top: '-5px', left: '100%', transform: 'translateX(-50%)' },
+  bottom: { bottom: '-5px', left: '0%', transform: 'translateX(-50%)' },
+};

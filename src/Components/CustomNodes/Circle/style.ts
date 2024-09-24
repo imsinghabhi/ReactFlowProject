@@ -32,3 +32,12 @@ export const handleStyle: React.CSSProperties = {
   backgroundColor: 'black',  
   borderRadius: '50%',
 };
+
+
+
+export const handlePosition = {
+  right: {  top: '50%' },
+  left: {  top: '50%' },
+  top: { left: '50%' },
+  bottom: {left: '50%' },
+};
