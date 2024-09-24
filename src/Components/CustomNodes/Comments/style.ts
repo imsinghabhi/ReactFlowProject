@@ -26,6 +26,19 @@ export const textFieldStyle: CSSProperties = {
   position: 'relative',
 };
 
+export const textareaStyle: CSSProperties = {
+  width: '100%',
+  height: '100%',
+  padding: '8px',
+  fontSize: '1em',
+  boxSizing: 'border-box',
+  border: '1px solid #ddd',
+  borderRadius: '8px',
+  resize: 'none',  
+  backgroundColor: 'transparent',
+  fontFamily: 'inherit',
+};
+
 export const handleStyle: CSSProperties = {
   backgroundColor: 'black',  
   borderRadius: '50%',

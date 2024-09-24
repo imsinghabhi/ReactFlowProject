@@ -28,7 +28,7 @@ const Workflow: React.FC = () => {
     onEdgesChange, onConnect, edgeType, handleEdgeTypeChange, 
     handleAddCircleNode, handleAddRhombusNode, handleAddRectangleNode,
     handleAddCommentNode, handleDeleteAllNodes, handleSaveWorkflow, 
-    handleLoadWorkflow, handleRemoveWorkflow, savedWorkflows, handleDownloadWorkflow,  
+    handleLoadWorkflow, handleRemoveWorkflow, savedWorkflows, handleDownloadWorkflow,   handleCreateNewWorkflow,
   } = useWorkflow();
 
   return (
@@ -49,10 +49,10 @@ const Workflow: React.FC = () => {
         savedWorkflows={savedWorkflows}
         onAddComments={handleAddCommentNode}
         onDownloadWorkflow={handleDownloadWorkflow}
-      
+        onCreateNewWorkflow={handleCreateNewWorkflow}
       />
 
-     
+    
       <ReactFlow
         nodes={nodes}
         edges={edges}

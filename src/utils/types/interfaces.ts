@@ -37,6 +37,7 @@ export interface Workflow {
     onRemoveWorkflow?: (workflowName: string) => void; 
     savedWorkflows: Workflow[]; 
     onDownloadWorkflow:(workflowName: string) => void; 
+    onCreateNewWorkflow:(workflowName: string) => void;
   }
   
   export interface CustomHandleProps extends HandleProps {
