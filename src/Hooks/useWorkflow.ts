@@ -12,8 +12,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { SelectChangeEvent } from '@mui/material';
 import localforage from 'localforage';
 import { debounce } from 'lodash';
-import { initialEdges, initialNodes } from '../utils/Workflow.constants';
-import { Workflow } from '../utils/types/interfaces';
+import { initialEdges, initialNodes } from '../utils/Constants/Workflow.constants';
+import { Workflow } from '../utils/Interfaces/types';
 
 export const useWorkflow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Handle, NodeResizer, Position } from "@xyflow/react";
-import { DataProps } from '../../../utils/types/interfaces';
+import { DataProps } from '../../../utils/Interfaces/types';
 import { nodeContainerStyle, textareaStyle, handleStyle } from './style'; 
 
 const CommentNode = ({ data, selected }: DataProps) => {

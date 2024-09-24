@@ -1,5 +1,5 @@
 import { Position } from "@xyflow/react";
-import { HandleType } from "../../utils/types/interfaces";
+import { HandleType } from "../../utils/Interfaces/types";
 import { handlePositions } from "../CustomNodes/Rectangle/style";
 import { handlePosition} from '../CustomNodes/Circle/style'; 
 import { handlePositin } from "../CustomNodes/Rhombus/Styles";

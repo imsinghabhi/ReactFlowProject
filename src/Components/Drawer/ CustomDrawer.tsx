@@ -11,7 +11,7 @@ import DiamondIcon from '@mui/icons-material/Diamond';
 import RectangleIcon from '@mui/icons-material/Rectangle';
 import CommentIcon from '@mui/icons-material/Comment';
 import { drawerStyles, listContainerStyle, listItemStyle, formControlStyle, buttonStyle, btnStyle } from './style'; // Adjusted import for buttonStyle
-import { DrawerProps } from '../../utils/types/interfaces';
+import { DrawerProps } from '../../utils/Interfaces/types';
 
 const ListItem = MuiListItem as React.ComponentType<any>;
 

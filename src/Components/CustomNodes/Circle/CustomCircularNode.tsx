@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NodeResizer } from '@xyflow/react';
 import CustomHandle from '../../CustomHandle/CustomHandle';
-import { DataProps } from '../../../utils/types/interfaces';
+import { DataProps } from '../../../utils/Interfaces/types';
 import { circularNodeStyle, inputStyle, handleStyle } from './style';
 import { CircularHandles } from '../../utils/constants';
 

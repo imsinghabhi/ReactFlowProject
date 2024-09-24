@@ -1,6 +1,6 @@
 import React from "react";
 import { Handle, HandleProps } from "@xyflow/react";
-import { CustomHandleProps } from "../../utils/types/interfaces";
+import { CustomHandleProps } from "../../utils/Interfaces/types";
 
 
 export default function CustomHandle({ id, style, ...props }: CustomHandleProps) {

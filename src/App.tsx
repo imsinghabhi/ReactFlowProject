@@ -1,5 +1,5 @@
 
-import Workflow from './Pages/Workflow';
+import Workflow from './Pages/PageWorkflow/Workflow';
 
 
 const App = () => {
