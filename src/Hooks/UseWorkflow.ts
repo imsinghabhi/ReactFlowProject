@@ -38,10 +38,10 @@ export const useWorkflow = () => {
   const handleNodeLabelChange = useCallback(
     (newLabel: string, nodeId: string) => {
       setNodes((nds) =>
-        nds.map((node) =>
-          node.id === nodeId
-            ? { ...node, data: { ...node.data, label: newLabel } }
-            : node
+        nds.map(({ id, data, ...rest }) => 
+          id === nodeId
+            ? { ...rest, data: { ...data, label: newLabel }, id } 
+            : { id, data, ...rest } 
         )
       );
     },
@@ -76,65 +76,28 @@ export const useWorkflow = () => {
     setEdgeType(event.target.value as string);
   };
 
-  const handleAddCircleNode = () => {
-    const nodeId = uuidv4();
-    const newNode: Node = {
-      id: nodeId,
-      type: 'circle',
-      position: { x: Math.random() * 200, y: Math.random() * 200 },
-      data: {
-        label: 'Circle Node',
-        onChange: (newLabel: string) => handleNodeLabelChange(newLabel, nodeId),
+  const createNode = useCallback(
+    (type: string, label: string) => {
+      const nodeId = uuidv4();
+      const newNode: Node = {
         id: nodeId,
-      },
-    };
-    setNodes((nds) => [...nds, newNode]);
-  };
+        type,
+        position: { x: Math.random() * 200, y: Math.random() * 200 },
+        data: {
+          label,
+          onChange: (newLabel: string) => handleNodeLabelChange(newLabel, nodeId),
+          id: nodeId,
+        },
+      };
+      setNodes((nds) => [...nds, newNode]);
+    },
+    [handleNodeLabelChange]
+  );
 
-  const handleAddRhombusNode = () => {
-    const nodeId = uuidv4();
-    const newNode: Node = {
-      id: nodeId,
-      type: 'rhombus',
-      position: { x: Math.random() * 200, y: Math.random() * 200 },
-      data: {
-        label: 'Rhombus Node',
-        onChange: (newLabel: string) => handleNodeLabelChange(newLabel, nodeId),
-        id: nodeId,
-      },
-    };
-    setNodes((nds) => [...nds, newNode]);
-  };
-
-  const handleAddRectangleNode = () => {
-    const nodeId = uuidv4();
-    const newNode: Node = {
-      id: nodeId,
-      type: 'rectangle',
-      position: { x: Math.random() * 200, y: Math.random() * 200 },
-      data: {
-        label: 'Rectangle Node',
-        onChange: (newLabel: string) => handleNodeLabelChange(newLabel, nodeId),
-        id: nodeId,
-      },
-    };
-    setNodes((nds) => [...nds, newNode]);
-  };
-
-  const handleAddCommentNode = () => {
-    const nodeId = uuidv4();
-    const newNode: Node = {
-      id: nodeId,
-      type: 'comment',
-      position: { x: Math.random() * 200, y: Math.random() * 200 },
-      data: {
-        label: '',
-        onChange: (newLabel: string) => handleNodeLabelChange(newLabel, nodeId),
-        id: nodeId,
-      },
-    };
-    setNodes((nds) => [...nds, newNode]);
-  };
+  const handleAddCircleNode = () => createNode('circle', 'Circle Node');
+  const handleAddRhombusNode = () => createNode('rhombus', 'Rhombus Node');
+  const handleAddRectangleNode = () => createNode('rectangle', 'Rectangle Node');
+  const handleAddCommentNode = () => createNode('comment', '');
 
   const handleDeleteAllNodes = () => {
     setNodes([]);
@@ -144,10 +107,10 @@ export const useWorkflow = () => {
   const handleSaveWorkflow = async (name: string) => {
     const workflow: Workflow = {
       name,
-      nodes: nodes.map((node) => ({
-        ...node,
+      nodes: nodes.map(({ data, ...rest }) => ({
+        ...rest,
         data: {
-          ...node.data,
+          ...data,
           onChange: undefined, 
         },
       })),
@@ -167,7 +130,6 @@ export const useWorkflow = () => {
     }
   };
 
-
   const debouncedAutoSaveWorkflow = useCallback(
     debounce(async () => {
       if (activeWorkflowName && userActive) {
@@ -183,11 +145,11 @@ export const useWorkflow = () => {
       const workflow = savedWorkflows?.find(w => w.name === name);
       if (workflow) {
         setActiveWorkflowName(name);
-        setNodes(workflow.nodes.map((node) => ({
-          ...node,
+        setNodes(workflow.nodes.map(({ data, ...rest }) => ({
+          ...rest,
           data: {
-            ...node.data,
-            onChange: (newLabel: string) => handleNodeLabelChange(newLabel, node.id),
+            ...data,
+            onChange: (newLabel: string) => handleNodeLabelChange(newLabel, rest.id),
           },
         })));
         setEdges(workflow.edges);
@@ -255,10 +217,9 @@ export const useWorkflow = () => {
     };
   }, [activityTimeout]);
 
-
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.ctrlKey && event.key === 'a') {
-      const nodeIds = nodes.map((node) => node.id);
+      const nodeIds = nodes.map(({ id }) => id);
       setNodes((nds) =>
         nds.map((node) => ({
           ...node,
@@ -274,7 +235,8 @@ export const useWorkflow = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [nodes]);
-const handleCreateNewWorkflow = async (name: string) => {
+
+  const handleCreateNewWorkflow = async (name: string) => {
     if (!name) {
       console.error("Workflow name cannot be empty.");
       return;
@@ -293,7 +255,6 @@ const handleCreateNewWorkflow = async (name: string) => {
         edges: [],
       };
 
-
       const updatedWorkflows = [...existingWorkflows, newWorkflow];
       await localforage.setItem('workflows', updatedWorkflows);
 
@@ -308,19 +269,12 @@ const handleCreateNewWorkflow = async (name: string) => {
     }
   };
 
-
-
-
   return {
     nodes,
     edges,
-    edgeType,
+    onConnect,
     onNodesChange,
     onEdgesChange,
-    onConnect,
-    handleEdgeTypeChange,
-    drawerOpen,
-    setDrawerOpen,
     handleAddCircleNode,
     handleAddRhombusNode,
     handleAddRectangleNode,
@@ -330,9 +284,13 @@ const handleCreateNewWorkflow = async (name: string) => {
     handleLoadWorkflow,
     handleRemoveWorkflow,
     handleDownloadWorkflow,
+    drawerOpen,
+    setDrawerOpen,
+    edgeType,
+    handleEdgeTypeChange,
+    resetActivityTimer,
+    createNode,
     savedWorkflows,
-    setAutoSaveInterval,
-    autoSaveInterval,
     handleCreateNewWorkflow,
   };
 };

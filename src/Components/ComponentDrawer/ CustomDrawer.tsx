@@ -154,24 +154,25 @@ const CustomDrawer: React.FC<DrawerProps> = ({
           </Box>
 
           {savedWorkflows.length > 0 && (
-            <>
-              <Divider sx={{ marginTop: '6px' }} />
-              <CommonTypography text={savedWorkflowsText} variant="subtitle1" sx={savedWorkflowsTitleStyle} />
-              {savedWorkflows.map((workflow) => (
-                <Box key={workflow.name} sx={savedWorkflowsContainerStyle}>
-                  <CommonTypography text={workflow.name} />
-                  <Box>
-                  <CommonButton variant="outlined" onClick={() => onLoadWorkflow?.(workflow.name)}>
-                    {loadText}
-                  </CommonButton>
-                  <CommonButton variant="outlined" color="error" onClick={() => onRemoveWorkflow?.(workflow.name)}>
-                    {deleteText}
-                  </CommonButton>
-                  </Box>
-                </Box>
-              ))}
-            </>
-          )}
+  <>
+    <Divider sx={{ marginTop: '6px' }} />
+    <CommonTypography text={savedWorkflowsText} variant="subtitle1" sx={savedWorkflowsTitleStyle} />
+    {savedWorkflows.map(({ name }) => ( 
+      <Box key={name} sx={savedWorkflowsContainerStyle}>
+        <CommonTypography text={name} />
+        <Box>
+          <CommonButton variant="outlined" onClick={() => onLoadWorkflow?.(name)}>
+            {loadText}
+          </CommonButton>
+          <CommonButton variant="outlined" color="error" onClick={() => onRemoveWorkflow?.(name)}>
+            {deleteText}
+          </CommonButton>
+        </Box>
+      </Box>
+    ))}
+  </>
+)}
+
         </List>
       </Box>
     </Drawer>
