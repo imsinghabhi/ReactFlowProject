@@ -1,12 +1,10 @@
-
-import Workflow from './Pages/Workflow';
+import React from 'react';
+import Workflow from './Pages/PageWorkflow/Workflow';
 
 
 const App = () => {
   return (
-    <div style={{ height: '100vh', width: '100vw', margin: 0, padding: 0 }}>
-      <Workflow  />
-    </div>
+      <Workflow />
   );
 };
 
