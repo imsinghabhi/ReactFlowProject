@@ -1,11 +1,5 @@
 import React from 'react';
-
-interface CommonTextareaProps {
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  placeholder?: string;
-  textareaStyle: React.CSSProperties;
-}
+import { CommonTextareaProps } from '../utils/type';
 
 const CommonTextarea: React.FC<CommonTextareaProps> = ({ value, onChange, placeholder, textareaStyle }) => {
   return (

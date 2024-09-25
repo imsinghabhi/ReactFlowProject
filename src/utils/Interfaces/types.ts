@@ -17,14 +17,10 @@ export interface DataProps {
   }
 
 
-export interface Workflow {
-  name: string;
-}
-export interface CommonInputProps {
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  inputStyle: React.CSSProperties;
-}
+// export interface Workflow {
+//   name: string;
+// }
+
 
   export interface DrawerProps {
     open: boolean;

@@ -1,4 +1,3 @@
-
 import { SxProps, Theme } from '@mui/material/styles';
 
 export const drawerStyles: SxProps<Theme> = {
@@ -24,17 +23,48 @@ export const listItemStyle: SxProps<Theme> = {
   },
 };
 
-export const formControlStyle: SxProps<Theme> = {
+export const typographyStyle: SxProps<Theme> = {
+  padding: '1px',
+  textAlign: 'center',
+};
+
+export const selectStyle: SxProps<Theme> = {
+  marginBottom: '6px',
   marginTop: '16px',
 };
 
-export const buttonStyle: SxProps<Theme> = {
-  minWidth: '250px',
-  padding: '10px 16px',
-  marginRight: '8px',
+export const textFieldStyle: SxProps<Theme> = {
+  marginBottom: '6px',
+  marginTop: '16px',
 };
-export const btnStyle: SxProps<Theme> = {
+
+export const addNewWorkflowButtonStyle: SxProps<Theme> = {
+  marginBottom: '8px',
+  minWidth: '250px',
+  height: '50px',
+};
+
+export const buttonContainerStyle: SxProps<Theme> = {
+  display: 'flex',
+  gap: 1,
+};
+
+export const saveButtonStyle: SxProps<Theme> = {
   minWidth: '130px',
-  padding: '10px 16px',
-  marginRight: '8px',
+};
+
+export const downloadButtonStyle: SxProps<Theme> = {
+  backgroundColor: '#4caf50',
+  color: '#fff',
+};
+
+export const savedWorkflowsContainerStyle: SxProps<Theme> = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  padding: '8px',
+};
+
+export const savedWorkflowsTitleStyle: SxProps<Theme> = {
+  textAlign: 'center',
+  marginTop: '6px',
 };

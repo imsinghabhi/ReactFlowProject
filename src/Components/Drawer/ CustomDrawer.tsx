@@ -1,24 +1,18 @@
-
-
 import React, { useState, ChangeEvent } from 'react';
-import {
-  Drawer, List, ListItem as MuiListItem, ListItemText, Divider,
-  FormControl, InputLabel, Select, MenuItem, TextField, Button, Typography, Box
-} from '@mui/material';
-import DownloadIcon from '@mui/icons-material/Download';
-import CircleIcon from '@mui/icons-material/Circle';
-import DiamondIcon from '@mui/icons-material/Diamond';
-import RectangleIcon from '@mui/icons-material/Rectangle';
-import CommentIcon from '@mui/icons-material/Comment';
-import { drawerStyles, listContainerStyle, listItemStyle, formControlStyle, buttonStyle, btnStyle } from './style'; // Adjusted import for buttonStyle
+import { Drawer, List, Divider, Box } from '@mui/material';
+import { CircleIcon, DiamondIcon, RectangleIcon, CommentIcon, DownloadIcon } from '../../Assests/Icons/index';
+import { drawerStyles, listContainerStyle, listItemStyle, typographyStyle, selectStyle, textFieldStyle, addNewWorkflowButtonStyle, buttonContainerStyle, saveButtonStyle, downloadButtonStyle, savedWorkflowsContainerStyle, savedWorkflowsTitleStyle } from './style';
 import { DrawerProps } from '../../utils/Interfaces/types';
-
-const ListItem = MuiListItem as React.ComponentType<any>;
+import CommonButton from '../CommonComponents/CommonButton';
+import CommonTypography from '../CommonComponents/CommonTypography';
+import CommonTextField from '../CommonComponents/CommonTextField';
+import CommonSelect from '../CommonComponents/CommonSelect';
+import { edgeTypeOptions } from '../../utils/Constants/EdgeType';
 
 const CustomDrawer: React.FC<DrawerProps> = ({
   open, onClose, onAddCircleNode, onAddRhombusNode, onAddRectangle,
-  edgeType, onEdgeTypeChange, onDeleteAllNodes, onAddComments,
-  onSaveWorkflow, onLoadWorkflow, onRemoveWorkflow, savedWorkflows, onDownloadWorkflow, onCreateNewWorkflow
+  edgeType, onEdgeTypeChange, onAddComments, onSaveWorkflow,
+  onLoadWorkflow, onRemoveWorkflow, savedWorkflows, onDownloadWorkflow, onCreateNewWorkflow
 }) => {
   const [workflowName, setWorkflowName] = useState<string>('');
 
@@ -36,113 +30,92 @@ const CustomDrawer: React.FC<DrawerProps> = ({
     >
       <Box sx={listContainerStyle}>
         <List>
-          <Typography variant="h6" sx={{ padding: '1px', textAlign: 'center' }}>
-            Workflow Editor
-          </Typography>
+          <CommonTypography text="Workflow Editor" variant="h6" sx={typographyStyle} />
           <Divider />
 
-          <ListItem sx={listItemStyle} onClick={onAddCircleNode}>
-            <CircleIcon sx={{ marginRight: '8px', color: '#1976d2' }} />
-            <ListItemText primary="Add Circle Node" />
-          </ListItem>
-          <Divider />
-          <ListItem sx={listItemStyle} onClick={onAddComments}>
-            <CommentIcon sx={{ marginRight: '8px', color: '#ff9800' }} />
-            <ListItemText primary="Add Comments" />
-          </ListItem>
-          <Divider />
-          <ListItem sx={listItemStyle} onClick={onAddRhombusNode}>
-            <DiamondIcon sx={{ marginRight: '8px', color: '#e91e63' }} />
-            <ListItemText primary="Add Rhombus Node" />
-          </ListItem>
-          <Divider />
-          <ListItem sx={listItemStyle} onClick={onAddRectangle}>
-            <RectangleIcon sx={{ marginRight: '8px', color: '#4caf50' }} />
-            <ListItemText primary="Add Rectangle Node" />
-          </ListItem>
+          <CommonButton onClick={onAddCircleNode} sx={listItemStyle} startIcon={<CircleIcon sx={{ color: '#1976d2' }} />}>
+            Add Circle Node
+          </CommonButton>
           <Divider />
 
-          <ListItem>
-            <FormControl fullWidth sx={formControlStyle}>
-              <InputLabel variant="outlined" shrink>
-                Edge Type
-              </InputLabel>
-              <Select
-                value={edgeType}
-                onChange={onEdgeTypeChange}
-                fullWidth
-                label="Edge Type"
-                variant="outlined"
-              >
-                <MenuItem value="default">Default</MenuItem>
-                <MenuItem value="straight">Straight</MenuItem>
-                <MenuItem value="smoothstep">Smooth Step</MenuItem>
-                <MenuItem value="step">Step</MenuItem>
-              </Select>
-            </FormControl>
-          </ListItem>
-
+          <CommonButton onClick={onAddComments} sx={listItemStyle} startIcon={<CommentIcon sx={{ color: '#ff9800' }} />}>
+            Add Comments
+          </CommonButton>
           <Divider />
 
-          <ListItem>
-            <TextField
-              fullWidth
-              label="Workflow Name"
-              value={workflowName}
-              onChange={handleWorkflowNameChange}
-              variant="outlined"
-              sx={{ marginBottom: '6px' }}
-            />
-          </ListItem>
+          <CommonButton onClick={onAddRhombusNode} sx={listItemStyle} startIcon={<DiamondIcon sx={{ color: '#e91e63' }} />}>
+            Add Rhombus Node
+          </CommonButton>
+          <Divider />
 
-          <ListItem sx={{ justifyContent: 'center' }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => onCreateNewWorkflow?.(workflowName)}
-              sx={buttonStyle}
-            >
-              Add New Workflow
-            </Button>
-          </ListItem>
+          <CommonButton onClick={onAddRectangle} sx={listItemStyle} startIcon={<RectangleIcon sx={{ color: '#4caf50' }} />}>
+            Add Rectangle Node
+          </CommonButton>
+          <Divider />
 
-          <ListItem sx={{ justifyContent: 'center' }}>
-            <Button
+          <CommonSelect
+            label="Edge Type"
+            value={edgeType}
+            onChange={onEdgeTypeChange}
+            options={edgeTypeOptions}
+            sx={selectStyle}
+          />
+          <Divider />
+
+          <CommonTextField
+            label="Workflow Name"
+            value={workflowName}
+            onChange={handleWorkflowNameChange}
+            variant="outlined"
+            sx={textFieldStyle}
+          />
+          <Divider />
+
+          <CommonButton
+            onClick={() => onCreateNewWorkflow?.(workflowName)}
+            variant="contained"
+            color="primary"
+            sx={addNewWorkflowButtonStyle}
+          >
+            Add New Workflow
+          </CommonButton>
+
+          <Box sx={buttonContainerStyle}>
+            <CommonButton
+              onClick={() => onSaveWorkflow?.(workflowName)}
               variant="contained"
               color="secondary"
-              onClick={() => onSaveWorkflow?.(workflowName)}
               disabled={!workflowName}
-              sx={btnStyle}
+              sx={saveButtonStyle}
             >
               Save
-            </Button>
-            <Button
-              variant="contained"
+            </CommonButton>
+
+            <CommonButton
               onClick={() => onDownloadWorkflow?.(workflowName)}
+              variant="contained"
               disabled={!workflowName || !savedWorkflows.find(w => w.name === workflowName)}
               startIcon={<DownloadIcon />}
-              sx={{ ...btnStyle, backgroundColor: '#4caf50', color: '#fff' }}
+              sx={downloadButtonStyle}
             >
               Download
-            </Button>
-          </ListItem>
+            </CommonButton>
+          </Box>
 
           {savedWorkflows.length > 0 && (
             <>
               <Divider sx={{ marginTop: '6px' }} />
-              <Typography variant="subtitle1" sx={{ textAlign: 'center', marginTop: '6px' }}>
-                Saved Workflows
-              </Typography>
+              <CommonTypography text="Saved Workflows" variant="subtitle1" sx={savedWorkflowsTitleStyle} />
               {savedWorkflows.map((workflow) => (
-                <ListItem key={workflow.name} sx={{ justifyContent: 'space-between' }}>
-                  <ListItemText primary={workflow.name} />
-                  <Button variant="outlined" onClick={() => onLoadWorkflow?.(workflow.name)}>
+                <Box key={workflow.name} sx={savedWorkflowsContainerStyle}>
+                  <CommonTypography text={workflow.name} />
+                  <CommonButton variant="outlined" onClick={() => onLoadWorkflow?.(workflow.name)}>
                     Load
-                  </Button>
-                  <Button variant="outlined" color="error" onClick={() => onRemoveWorkflow?.(workflow.name)}>
+                  </CommonButton>
+                  <CommonButton variant="outlined" color="error" onClick={() => onRemoveWorkflow?.(workflow.name)}>
                     Delete
-                  </Button>
-                </ListItem>
+                  </CommonButton>
+                </Box>
               ))}
             </>
           )}

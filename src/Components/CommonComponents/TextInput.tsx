@@ -1,6 +1,5 @@
 import React from 'react';
-import { CommonInputProps } from '../../utils/Interfaces/types';
-
+import { CommonInputProps } from '../utils/type';
 
 
 const CommonInput: React.FC<CommonInputProps> = ({ value, onChange, inputStyle }) => {

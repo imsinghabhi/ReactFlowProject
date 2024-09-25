@@ -6,21 +6,13 @@ import {
   MiniMap,
   ReactFlow,
 } from '@xyflow/react';
-import CustomCircularNode from '../../Components/CustomNodes/Circle/CustomCircularNode';
-import CustomRhombusNode from '../../Components/CustomNodes/Rhombus/rhombus';
-import CustomRectangularNode from '../../Components/CustomNodes/Rectangle/Rectangular';
-import CommentNode from '../../Components/CustomNodes/Comments/Comments';
 import CustomDrawer from '../../Components/Drawer/ CustomDrawer';
 import { useWorkflow } from '../../Hooks/useWorkflow';
 import '@xyflow/react/dist/style.css';
+import { nodeTypes } from '../../utils/Constants/NodeTypes';
+import { workflowContainerStyle } from './StyleWorkflow';
 
 
-const nodeTypes = {
-  circle: CustomCircularNode,
-  rhombus: CustomRhombusNode,
-  rectangle: CustomRectangularNode,
-  comment: CommentNode,
-};
 
 const Workflow: React.FC = () => {
   const {
@@ -32,7 +24,7 @@ const Workflow: React.FC = () => {
   } = useWorkflow();
 
   return (
-    <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
+    <div style={workflowContainerStyle}>
       
       <CustomDrawer
         open={drawerOpen}
