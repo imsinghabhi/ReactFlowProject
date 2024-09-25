@@ -1,12 +1,10 @@
 import React from 'react';
-import { Button} from '@mui/material';
+import { Button, ButtonProps } from '@mui/material';
 import { CommonButtonProps } from '../Utils/Type';
 
-
-
-const CommonButton: React.FC<CommonButtonProps> = ({ children, onClick, sx, ...props }) => {
+const CommonButton: React.FC<CommonButtonProps> = ({ children, onClick, disabled, sx, ...props }) => {
   return (
-    <Button onClick={onClick} sx={sx} {...props}>
+    <Button onClick={onClick} disabled={disabled} sx={sx} {...props}>
       {children}
     </Button>
   );

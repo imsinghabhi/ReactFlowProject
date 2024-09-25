@@ -1,15 +1,17 @@
 import React from 'react';
 import { CommonInputProps } from '../Utils/Type';
 
-
-const CommonInput: React.FC<CommonInputProps> = ({ value, onChange, inputStyle }) => {
+const CommonInput: React.FC<CommonInputProps> = ({ value, onChange, inputStyle, error, helperText }) => {
   return (
-    <input
-      type="text"
-      value={value}
-      onChange={onChange}
-      style={inputStyle}
-    />
+    <div>
+      <input
+        type="text"
+        value={value}
+        onChange={onChange}
+        style={{ ...inputStyle, borderColor: error ? 'red' : undefined }}
+      />
+      {error && <span style={{ color: 'red' }}>{helperText}</span>}
+    </div>
   );
 };
 
