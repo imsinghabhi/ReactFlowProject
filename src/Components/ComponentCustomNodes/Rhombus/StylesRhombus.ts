@@ -1,0 +1,48 @@
+import { CSSProperties } from "react";
+import { theme } from "../../../Utils/Themes/Theme";
+
+export const nodeStyle: CSSProperties = {
+  width: '100%',
+  height: '100%',
+  minWidth: '100px',
+  minHeight: '100px',
+  backgroundColor: theme.colors.hoverBackground, 
+  border: `1px solid ${theme.colors.grey}`, 
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: 'center',
+  transform: 'rotate(45deg)', 
+  position: 'relative',
+  boxSizing: 'border-box',
+  aspectRatio: '1/1', 
+  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+  fontSize: '1em',
+};
+
+export const inputStyle: CSSProperties = {
+  transform: 'rotate(-45deg)', 
+  padding: '5px',
+  fontSize: '1em',
+  backgroundColor: 'transparent',
+  textAlign: 'center',
+  width: '80%',
+  border: 'none',
+  zIndex: 1,
+  pointerEvents: 'auto',
+};
+
+export const handleStyle: CSSProperties = {
+  width: '10px',
+  height: '10px',
+  backgroundColor: theme.colors.black, 
+  borderRadius: '50%',
+  zIndex: 1,
+};
+
+export const handlePositin = {
+  right: { right: '-5px', top: '100%', transform: 'translateY(-50%)' },
+  left: { left: '-5px', top: '0%', transform: 'translateY(-50%)' },
+  top: { top: '-5px', left: '100%', transform: 'translateX(-50%)' },
+  bottom: { bottom: '-5px', left: '0%', transform: 'translateX(-50%)' },
+};

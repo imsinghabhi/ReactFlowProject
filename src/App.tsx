@@ -1,12 +1,10 @@
-
+import React from 'react';
 import Workflow from './Pages/PageWorkflow/Workflow';
 
 
 const App = () => {
   return (
-    <div >
-      <Workflow  />
-    </div>
+      <Workflow />
   );
 };
 

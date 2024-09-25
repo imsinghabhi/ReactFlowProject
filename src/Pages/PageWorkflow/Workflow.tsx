@@ -6,10 +6,10 @@ import {
   MiniMap,
   ReactFlow,
 } from '@xyflow/react';
-import CustomDrawer from '../../Components/Drawer/ CustomDrawer';
-import { useWorkflow } from '../../Hooks/useWorkflow';
+import CustomDrawer from '../../Components/ComponentDrawer/ CustomDrawer';
+import { useWorkflow } from '../../Hooks/UseWorkflow';
 import '@xyflow/react/dist/style.css';
-import { nodeTypes } from '../../utils/Constants/NodeTypes';
+import { nodeTypes } from '../../Utils/Constants/ConstantNodeTypes';
 import { workflowContainerStyle } from './StyleWorkflow';
 
 
@@ -25,7 +25,7 @@ const Workflow: React.FC = () => {
 
   return (
     <div style={workflowContainerStyle}>
-      
+     
       <CustomDrawer
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
@@ -44,7 +44,6 @@ const Workflow: React.FC = () => {
         onCreateNewWorkflow={handleCreateNewWorkflow}
       />
 
-    
       <ReactFlow
         nodes={nodes}
         edges={edges}
